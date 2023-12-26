@@ -3,6 +3,24 @@ const { generateError } = require('../../helpers');
 const { getConnection } = require('../db')
 
 
+const getAllUsers = async () => {
+    let connection
+
+    try {
+        connection = await getConnection()
+
+        const [result] = await connection.query(`
+            SELECT * FROM users ORDER BY created_at DESC
+        `)
+
+        return result
+        
+    } finally {
+        if(connection) connection.release()
+    }
+}
+
+
 const getUserByEmail = async (email) => {
     let connection
     
@@ -81,8 +99,32 @@ const createUser = async (email, name, password, avatar, address) => {
     }
 }
 
+
+const deleteUser = async (id) => {
+    let connection;
+
+    try {
+        connection = await getConnection();
+
+        
+        await connection.query(
+        `
+            DELETE FROM users WHERE id = ?
+        `,
+        [id]
+        );
+        
+        return 
+    } finally {
+        if (connection) connection.release()
+    }
+}
+
+
 module.exports = {
     createUser,
     getUserById,
-    getUserByEmail
+    getUserByEmail,
+    getAllUsers,
+    deleteUser
 }

@@ -8,6 +8,8 @@ const {
     newUserController,
     loginController,
     getUserController,
+    getAllUsersController,
+    deleteUserController,
 } = require('./controllers/users');
 
 const {
@@ -31,8 +33,9 @@ app.use('/uploads',express.static('./uploads'))
 //Rutas de usuário
 app.post('/user', newUserController);
 app.get('/user/:id', getUserController);
+app.get('/users', getAllUsersController)
 app.post('/login', loginController)
-
+app.delete('/user/:id', authUser, deleteUserController)
 
 // Rutas de Localization
 

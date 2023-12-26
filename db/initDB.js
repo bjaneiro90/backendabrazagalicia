@@ -16,6 +16,8 @@ async function main() {
         
         console.log('Creando tablas')
 
+        // address - modificar codigo postal
+
         await connection.query(`
             CREATE TABLE users (
                 id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,

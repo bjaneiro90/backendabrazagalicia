@@ -2,7 +2,7 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const {generateError, createPathIfNotExists} = require('../helpers')
 const {newUserSchema }  = require("../schemas/users/newUser")
-const { createUser, getUserById, getUserByEmail } = require("../db/queries/users")
+const { createUser, getUserById, getUserByEmail, getAllUsers, deleteUser } = require("../db/queries/users")
 const { logInSchema } = require('../schemas/users/logIn')
 const path = require('path')
 const sharp = require('sharp')
@@ -30,11 +30,8 @@ const {sendMail} = require('../SendMail')
            imageFileName = `${nanoid(24)}.png`
 
            await image.toFile(path.join(uploadsDir, imageFileName))
-
-
         }
 
-        
         const id = await createUser(email, name, password, imageFileName, address)
 
         const user = await getUserById(id)
@@ -77,6 +74,22 @@ const {sendMail} = require('../SendMail')
 
 
 
+ const getAllUsersController = async (req,res,next) => {
+    try {
+        const users = await getAllUsers()
+
+        res.send({
+            status: 'ok',
+            data: users
+        })
+    } catch (error) {
+       next(error)
+    }
+
+ }
+
+
+
  const loginController = async (req, res, next) => {
     try {
 
@@ -108,8 +121,28 @@ const {sendMail} = require('../SendMail')
     }
  }
 
+
+ const deleteUserController = async (req, res, next) => {
+    try {
+        
+        const {id} = req.params
+    
+    
+        await deleteUser(id)
+    
+        res.send({
+            status: "ok",
+            message: `User con id: ${id} fue borrado`
+        })
+    } catch (error) {
+     next(error)
+    }
+ }
+
  module.exports = {
     newUserController,
     getUserController,
-    loginController
+    loginController,
+    getAllUsersController,
+    deleteUserController
  }
