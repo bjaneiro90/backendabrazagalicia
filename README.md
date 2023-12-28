@@ -13,11 +13,13 @@ Rutas de usuario:
 POST / --> Registro de usuario
 POST /login --> Login de usuario
 PUT /user/update/:id --> Modificar el usuario
-GET /user/:id --> listar el usuario
+GET /user/:id --> listar el usuario por id
+GET /users --> listar los usuarios
+DELETE /user/delete/:id --> Elimina el producto
 
 Rutas de posts:
 GET /posts --> Muestra todos los productos
 GET /posts/:id --> Selecciona el producto por el id
-DELETE /post/:id --> Crea un nuevo producto
-PUT /posts/:id --> Elimina el producto
+POST /post/:id --> Crea un nuevo producto
+DELETE /posts/:id --> Elimina el producto
 

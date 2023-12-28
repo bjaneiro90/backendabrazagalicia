@@ -100,6 +100,7 @@ const createUser = async (email, name, password, avatar, address) => {
 }
 
 
+
 const deleteUser = async (id) => {
     let connection;
 
@@ -121,10 +122,13 @@ const deleteUser = async (id) => {
 }
 
 
+
+
+
 module.exports = {
     createUser,
     getUserById,
     getUserByEmail,
     getAllUsers,
-    deleteUser
+    deleteUser,
 }

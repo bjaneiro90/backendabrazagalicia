@@ -10,6 +10,7 @@ const {
     getUserController,
     getAllUsersController,
     deleteUserController,
+    editUserController,
 } = require('./controllers/users');
 
 const {
@@ -35,7 +36,8 @@ app.post('/user', newUserController);
 app.get('/user/:id', getUserController);
 app.get('/users', getAllUsersController)
 app.post('/login', loginController)
-app.delete('/user/:id', authUser, deleteUserController)
+app.put('/user/update/:id', authUser, editUserController)
+app.delete('/user/delete/:id', authUser, deleteUserController)
 
 // Rutas de Localization
 
